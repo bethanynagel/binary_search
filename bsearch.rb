@@ -2,19 +2,35 @@ require 'rubygems'
 require 'pry-debugger'
 module ArrayUtil
   def self.bsearch(array, element)
-    # If the array is empty return a result
-    # Otherwise call your helper _bsearch method
+   # If the array is empty return a result
+    if array.length < 1
+      return false
+    else
+       _bsearch(array, element, 0, array.length - 1)
+    end
   end
-
+  
+  #[1, 2, 3, 4, 5]
   def self._bsearch(array, element, start_index, end_index)
     # If the start and end indeces are the same, search
-    # that element and return
-    #
-    # Otherwise, find the midpoint
-    #   midpoint = start_index + (end_index - start_index) / 2
-    #
-    # If the element is greater than the one at midpoint, call
-    #   _bsearch on the right half of the remaining array
-    # Otherwise, call _bsearch on left half of the remaining array
+    # that element and return true
+      if start_index == end_index
+        if array[start_index] == element
+          return true
+        #return false for arrays with 1 item not equal to element
+        else
+          return false
+        end
+        # Otherwise, find the midpoint
+      else
+        midpoint = start_index + (end_index - start_index) / 2
+          if element > array[midpoint]
+            #call ._bsearch on this half of array
+            _bsearch(array, element, midpoint + 1, end_index)
+          else 
+            #call ._bsearch on other half of array
+            _bsearch(array, element, start_index, midpoint)
+          end
+      end
   end
 end
